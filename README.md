@@ -4,12 +4,12 @@
 ##  Project Overview
 This project builds a real-time data pipeline to monitor and analyze customer transaction behavior. It processes data from Kafka → Spark Streaming → InfluxDB → Grafana to visualize metrics such as:
 
-- 🛍️ Average transaction amount per category
-- 👥 Number of transactions per minute
-- 📈 Real-time activity trends
-- ⚠️ Impossible Travel Alerts
-- 🛒 Suspicious Spending Spree Alerts
-- 💳 Low-High Velocity (Card Testing) Alerts
+-  Average transaction amount per category
+-  Number of transactions per minute
+-  Real-time activity trends
+-  Impossible Travel Alerts
+-  Suspicious Spending Spree Alerts
+-  Low-High Velocity (Card Testing) Alerts
 
 Unlike ultra-low latency systems (e.g., fraud blocking), this dashboard focuses on monitoring trends and detecting anomalies in real time (latency 1–10 seconds).
 
@@ -37,9 +37,9 @@ The core of this project is its ability to run real-time fraud detection rules i
 2. **Suspicious Spending Spree:** Flags clients who make purchases across four or more different merchant categories (e.g., "food," "fashion," "travel") within a 15-minute window.  
 3. **Low-High Velocity (Card Testing):** Catches a classic fraud pattern where a client makes a very small transaction (< $5) followed immediately by a very large one (> $1000) within the same 5-minute window.
 
-## 🚀 How to Run
+## How to Run
 
-### 1️⃣ Show data sent by the producer to Kafka
+### Show data sent by the producer to Kafka
 ```bash
 docker exec -it kafka /usr/bin/kafka-console-consumer     --bootstrap-server localhost:9092     --topic transactions     --from-beginning
 ```
@@ -53,7 +53,7 @@ docker exec -it kafka /usr/bin/kafka-topics --bootstrap-server localhost:9092 --
 docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic transactions --partitions 1 --replication-factor 1
 ```
 
-### 2️⃣ Execute Spark Streaming
+### Execute Spark Streaming
 Copy the Spark script to the container:
 ```bash
 docker cp "/mnt/c/Users/Nadhem BenHadjali/Desktop/projet_fraud_detection/spark_streaming_app.py" spark-master:/opt/spark/work-dir/spark_streaming_app.py
@@ -70,7 +70,7 @@ Run the Spark Streaming script:
 /opt/spark/bin/spark-submit     --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.3     spark_streaming_app.py
 ```
 
-### 3️⃣ Display stored data in InfluxDB
+### Display stored data in InfluxDB
 ```bash
 docker exec -it influxdb influx
 ```
@@ -85,7 +85,7 @@ Then in the InfluxDB shell:
 > SELECT * FROM "low_high_velocity_alerts" LIMIT 10;
 ```
 
-### 4️⃣ Visualize Data in Grafana
+### Visualize Data in Grafana
 Go to [http://localhost:3000](http://localhost:3000)
 
 Login: `admin / admin`
@@ -105,7 +105,7 @@ Create dashboards with panels showing:
 
 ##  File Structure
 ```
-📂 project/
+ project/
 ├── docker-compose.yml
 ├── producer.py
 ├── spark_streaming_app.py
